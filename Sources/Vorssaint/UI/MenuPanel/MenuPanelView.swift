@@ -2655,7 +2655,7 @@ struct UpdateBanner: View {
                             .foregroundStyle(.white.opacity(0.85))
                     }
                     Spacer()
-                    Text(UpdateService.installsInApp ? l10n.s.updateBannerAction : "Selbst bauen")
+                    Text(UpdateService.installsInApp ? l10n.s.updateBannerAction : "Build Yourself")
                         .font(.system(size: 11, weight: .semibold))
                         .foregroundStyle(tintColor)
                         .padding(.horizontal, 10)

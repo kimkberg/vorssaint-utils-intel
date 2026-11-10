@@ -21,7 +21,7 @@ struct NotchUpdateControl: View {
                     if compact {
                         Image(systemName: "arrow.down.circle.fill")
                     } else {
-                        Label(UpdateService.installsInApp ? l10n.s.updateBannerAction : "Selbst bauen",
+                        Label(UpdateService.installsInApp ? l10n.s.updateBannerAction : "Build Yourself",
                               systemImage: "arrow.down.circle.fill")
                     }
                 }

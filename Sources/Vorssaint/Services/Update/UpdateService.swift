@@ -46,12 +46,12 @@ final class UpdateService: ObservableObject {
     static let installsInApp = true
     #endif
 
-    static let selfBuildTitle = "Update selbst bauen"
+    static let selfBuildTitle = "Build the update yourself"
     static let selfBuildMessage = """
-        Diese Intel-Version installiert Updates nicht selbst, weil die offiziellen \
-        Releases nur für Apple Silicon gebaut sind.
+        This Intel build does not install updates itself, because the official \
+        releases are built for Apple Silicon only.
 
-        Fork auf GitHub synchronisieren („Sync fork“), dann im Repository:
+        Sync the fork on GitHub ("Sync fork"), then in the repository run:
         git pull
         ./build.sh
         """

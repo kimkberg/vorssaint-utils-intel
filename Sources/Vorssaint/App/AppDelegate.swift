@@ -2633,7 +2633,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSW
             alert.messageText = "\(UpdateService.selfBuildTitle): \(L10n.shared.s.versionPrefix) \(version)"
             alert.informativeText = UpdateService.selfBuildMessage
             alert.addButton(withTitle: "OK")
-            alert.addButton(withTitle: "Release-Notizen öffnen")
+            alert.addButton(withTitle: "Open Release Notes")
             if alert.runModal() == .alertSecondButtonReturn,
                let url = URL(string: "https://github.com/vorssaint/vorssaint-utils/releases/tag/v\(version)") {
                 NSWorkspace.shared.open(url)

@@ -451,7 +451,7 @@ struct NotchView: View {
         // An offer the row has no room for still reaches the island.
         if updateOffered {
             Button(action: service.showUpdate) {
-                Label(UpdateService.installsInApp ? l10n.s.updateBannerAction : "Selbst bauen",
+                Label(UpdateService.installsInApp ? l10n.s.updateBannerAction : "Build Yourself",
                       systemImage: "arrow.down.circle")
             }
         }
