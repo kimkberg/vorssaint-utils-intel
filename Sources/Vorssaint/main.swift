@@ -3,7 +3,14 @@
 
 import AppKit
 
+// Select backup mode before cleanup and diagnostic arguments can act. Invalid
+// backup commands must leave files, input mappings and recovery journals alone.
+if let command = SettingsBackupSupport.command(in: CommandLine.arguments) {
+    SettingsBackup.runCommandAndExit(command)
+}
+
 SuperKeyMappingGuard.runIfRequestedAndExit()
+let configuredFeatureKeys = SettingsBackup.applyConfigFileAtLaunch()
 Defaults.register()
 NotchControlItem.keyboardLightIsSupported = { BrightnessService.keyboardLightIsSupported }
 MouseAccelerationGuard.runIfRequestedAndExit()
@@ -31,5 +38,6 @@ if NotchPresentationProbe.isRequested(by: CommandLine.arguments) {
 
 let app = NSApplication.shared
 let delegate = AppDelegate()
+delegate.configuredFeatureKeys = configuredFeatureKeys
 app.delegate = delegate
 app.run()
