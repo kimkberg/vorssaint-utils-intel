@@ -2626,6 +2626,20 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSW
     /// is a no-op, so confirming is safe.
     func showUpdatePreview() {
         guard case let .available(version) = UpdateService.shared.state else { return }
+        guard UpdateService.installsInApp else {
+            closePopover()
+            NSApp.activate(ignoringOtherApps: true)
+            let alert = NSAlert()
+            alert.messageText = "\(UpdateService.selfBuildTitle): \(L10n.shared.s.versionPrefix) \(version)"
+            alert.informativeText = UpdateService.selfBuildMessage
+            alert.addButton(withTitle: "OK")
+            alert.addButton(withTitle: "Open Release Notes")
+            if alert.runModal() == .alertSecondButtonReturn,
+               let url = URL(string: "https://github.com/vorssaint/vorssaint-utils/releases/tag/v\(version)") {
+                NSWorkspace.shared.open(url)
+            }
+            return
+        }
         if let window = updatePreviewWindow {
             closePopover()
             NSApp.activate(ignoringOtherApps: true)

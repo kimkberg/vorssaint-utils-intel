@@ -666,12 +666,16 @@ struct UpdatesView: View {
                 }
                 .disabled(isBusy)
 
-                if case .available = updates.state {
+                if case .available = updates.state, UpdateService.installsInApp {
                     Button(l10n.s.updateInstallButton) {
                         appDelegate()?.showUpdatePreview()
                     }
                     .buttonStyle(.borderedProminent)
                 }
+            }
+
+            if case .available = updates.state, !UpdateService.installsInApp {
+                SettingsCaptionText(UpdateService.selfBuildMessage)
             }
 
             if let lastChecked = updates.lastChecked {
