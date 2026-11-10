@@ -37,6 +37,25 @@ final class UpdateService: ObservableObject {
 
     private init() {}
 
+    /// Intel fork: the official releases are Apple Silicon builds, so installing
+    /// one would replace this x86_64 app with a binary that cannot launch here.
+    /// The update is still checked and shown, but built locally instead.
+    #if arch(x86_64)
+    static let installsInApp = false
+    #else
+    static let installsInApp = true
+    #endif
+
+    static let selfBuildTitle = "Update selbst bauen"
+    static let selfBuildMessage = """
+        Diese Intel-Version installiert Updates nicht selbst, weil die offiziellen \
+        Releases nur für Apple Silicon gebaut sind.
+
+        Fork auf GitHub synchronisieren („Sync fork“), dann im Repository:
+        git pull
+        ./build.sh
+        """
+
     var autoCheckEnabled: Bool {
         get { UserDefaults.standard.object(forKey: DefaultsKey.autoCheckUpdates) as? Bool ?? true }
         set {
@@ -207,6 +226,7 @@ final class UpdateService: ObservableObject {
 
     func downloadAndInstall() {
         if AppInfo.isDeveloperBuild { return }  // never replace the local dev build over itself
+        guard Self.installsInApp else { return }  // Intel fork: built locally, see installsInApp
         guard let downloadURL else { return }
         // Pre-flight BEFORE spending the download: a translocated app or one
         // running from a read-only volume (the mounted DMG) can never be

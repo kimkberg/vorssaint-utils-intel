@@ -21,7 +21,8 @@ struct NotchUpdateControl: View {
                     if compact {
                         Image(systemName: "arrow.down.circle.fill")
                     } else {
-                        Label(l10n.s.updateBannerAction, systemImage: "arrow.down.circle.fill")
+                        Label(UpdateService.installsInApp ? l10n.s.updateBannerAction : "Selbst bauen",
+                              systemImage: "arrow.down.circle.fill")
                     }
                 }
                 .font(.system(size: 11, weight: .semibold))
